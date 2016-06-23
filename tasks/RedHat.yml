@@ -3,7 +3,8 @@
 - name: Add TreasureData Repository
   yum_repository:
     name: treasuredata
+    file: td.repo
     description: TreasureData
-    baseurl: http://packages.treasuredata.com/2/redhat/\$releasever/\$basearch
+    baseurl: http://packages.treasuredata.com/2/redhat/$releasever/$basearch
     gpgcheck: yes
     gpgkey: https://packages.treasuredata.com/GPG-KEY-td-agent
