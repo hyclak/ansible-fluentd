@@ -1,0 +1,9 @@
+---
+# Red Hat Installation
+- name: Add TreasureData Repository
+  yum_repository:
+    name: treasuredata
+    description: TreasureData
+    baseurl: http://packages.treasuredata.com/2/redhat/\$releasever/\$basearch
+    gpgcheck: yes
+    gpgkey: https://packages.treasuredata.com/GPG-KEY-td-agent

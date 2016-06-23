@@ -1,2 +1,27 @@
 ---
 # tasks file for hyclak.fluentd
+# Prereqs from http://docs.fluentd.org/articles/before-install
+- name: Set file limits (root soft)
+  pam_limits: domain=root limit_type=soft limit_item=nofile value=65535
+
+- name: Set file limits (root hard)
+  pam_limits: domain=root limit_type=hard limit_item=nofile value=65535
+
+- name: Set file limits (* soft)
+  pam_limits: domain='*' limit_type=soft limit_item=nofile value=65535
+
+- name: Set file limits (* hard)
+  pam_limits: domain='*' limit_type=hard limit_item=nofile value=65535
+
+- name: Enable tcp_tw_recycle
+  sysctl: name=net.ipv4.tcp_tw_recycle value=1 state=present
+
+- name: Enable tcp_tw_reuse
+  sysctl: name=net.ipv4.tcp_tw_reuse value=1 state=present
+
+- name: Expand ip_local_port_range
+  sysctl: name=net.ipv4.ip_local_port_range value="10240 65535" state=present
+
+- name: (RedHat) Install
+  when: ansible_os_family == 'RedHat'
+  include: RedHat.yml
