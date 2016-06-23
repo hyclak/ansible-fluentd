@@ -8,3 +8,11 @@
     baseurl: http://packages.treasuredata.com/2/redhat/$releasever/$basearch
     gpgcheck: yes
     gpgkey: https://packages.treasuredata.com/GPG-KEY-td-agent
+
+- name: Install td-agent RPM
+  yum:
+    name: td-agent
+    state: installed
+
+- name: Manage td-agent service
+  service: name=td-agent state=started enabled=yes
