@@ -22,6 +22,11 @@
 - name: Expand ip_local_port_range
   sysctl: name=net.ipv4.ip_local_port_range value="10240 65535" state=present
 
+# Perform Install
 - name: (RedHat) Install
   when: ansible_os_family == 'RedHat'
   include: RedHat.yml
+
+# Install elasticsearch plugin
+- name: fluent elasticsearch plugin
+  command: /opt/td-agent/embedded/bin/gem install fluent-plugin-elasticsearch
