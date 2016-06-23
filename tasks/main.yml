@@ -29,4 +29,4 @@
 
 # Install elasticsearch plugin
 - name: fluent elasticsearch plugin
-  command: /opt/td-agent/embedded/bin/gem install fluent-plugin-elasticsearch
+  gem: executable=/opt/td-agent/embedded/bin/gem name=fluent-plugin-elasticsearch state=present
