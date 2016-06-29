@@ -15,10 +15,21 @@
     state: installed
 
 - name: Manage td-agent service
-  service: name=td-agent state=started enabled=yes
+  service: 
+    name: td-agent
+    state: started 
+    enabled: yes
 
 - name: Open fluent TCP port
-  firewalld: port=9200/tcp permanent=true state=enabled immediate=true
+  firewalld: 
+    port: 9200/tcp
+    permanent: true
+    state: enabled 
+    immediate: true
 
 - name: Open fluent HTTP port
-  firewalld: port=8888/tcp permanent=true state=enabled immediate=true
+  firewalld: 
+    port: 8888/tcp 
+    permanent: true 
+    state: enabled 
+    immediate: true
