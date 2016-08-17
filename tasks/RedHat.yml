@@ -22,7 +22,7 @@
 
 - name: Open fluent TCP port
   firewalld: 
-    port: 9200/tcp
+    port: 24224/tcp
     permanent: true
     state: enabled 
     immediate: true
