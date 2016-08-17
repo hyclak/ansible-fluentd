@@ -1,0 +1,17 @@
+# Install elasticsearch plugin
+- name: fluent elasticsearch plugin
+  gem: 
+    executable: /opt/td-agent/embedded/bin/gem 
+    name: fluent-plugin-elasticsearch 
+    state: present
+
+- name: Install base configuration
+  template:
+    dest: /etc/td-agent/td-agent.conf
+    src: etc/td-agent/server-td-agent.conf.j2
+
+- name: Install application configurations
+  template:
+    dest: /etc/td-agent/config.d/{{ item }}.conf
+    src: etc/td-agent/config.d/{{ item }}.conf.j2
+    with_items: "{{ fluentd_apps }}"
