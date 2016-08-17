@@ -52,9 +52,11 @@
   when: ansible_os_family == 'RedHat'
   include: RedHat.yml
 
-# Install elasticsearch plugin
-- name: fluent elasticsearch plugin
-  gem: 
-    executable: /opt/td-agent/embedded/bin/gem 
-    name: fluent-plugin-elasticsearch 
-    state: present
+# Server or Client
+- name: Set up Server Configuration
+  when: fluentd_mode == 'server'
+  include: server.yml
+
+- name: Set up Client Configuration
+  when: fluentd_mode == 'client'
+  include: client.yml
