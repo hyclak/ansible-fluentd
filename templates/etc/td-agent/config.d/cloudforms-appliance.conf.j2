@@ -1,0 +1,62 @@
+## read audit.log continuously and tag cfme
+<source>
+  @type tail
+  format multiline
+  format_firstline '/^\[----\].*/'
+  format1 '/^\[----\]\ [A-Z],\ \[(?<time>[^\ ]*)\ #(?<pid>[0-9]*):(?<thread>[\h]*)\]\s+(?<level>[A-Z]*)\ --\ (?<result>[^:]*):\ (?<action>[^ ]*)\ userid:\ \[(?<userid>[^\]]*)\]\ -\ (?<message>.*)/'
+  path /var/www/miq/vmdb/log/audit.log
+  pos_file /var/log/td-agent/audit.log.pos
+  tag cfme.audit
+  keep_time_key true
+  time_key time
+  time_format %Y-%m-%dT%H:%M:%S.%N
+</source>
+
+## read automation.log continuously and tag cfme
+<source>
+  @type tail
+  format multiline
+  format_firstline '/^\[----\].*/'
+  format1 '/^\[----\]\ [A-Z],\ \[(?<time>[^\ ]*)\ #(?<pid>[0-9]*):(?<thread>[\h]*)\]\s+(?<level>[A-Z]*)\ --\ :(?<message>.*)/'
+  path /var/www/miq/vmdb/log/automation.log
+  pos_file /var/log/td-agent/automation.log.pos
+  tag cfme.automation
+  keep_time_key true
+  time_key time
+  time_format %Y-%m-%dT%H:%M:%S.%N
+</source>
+
+## read evm.log continuously and tag cfme
+<source>
+  @type tail
+  format multiline
+  format_firstline '/^\[----\].*/'
+  format1 '/^\[----\]\ [A-Z],\ \[(?<time>[^\ ]*)\ #(?<pid>[0-9]*):(?<thread>[\h]*)\]\s+(?<level>[A-Z]*)\ --\ :(?<message>.*)/'
+  path /var/www/miq/vmdb/log/evm.log
+  pos_file /var/log/td-agent/evm.log.pos
+  tag cfme.evm
+  keep_time_key true
+  time_key time
+  time_format %Y-%m-%dT%H:%M:%S.%N
+</source>
+
+## Send appliance name and update the time to include TZ info
+<filter cfme.**>
+  @type record_transformer
+  enable_ruby
+  <record>
+    appliance "#{Socket.gethostname}"
+  </record>
+  <record>
+    time ${time.strftime('%Y-%m-%dT%H:%M:%S.%N%z')}
+  </record>
+</filter>
+
+## match tag=cfme.** and forward to another td-agent server
+<match cfme.**>
+  @type forward
+  <server>
+    host {{ fwdhost }}
+  </server>
+</match>
+

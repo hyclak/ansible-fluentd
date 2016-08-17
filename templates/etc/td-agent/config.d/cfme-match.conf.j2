@@ -1,0 +1,13 @@
+<match cfme.**>
+  type copy
+  <store>
+    type elasticsearch
+    logstash_format true
+    time_key time
+    time_key_format "%Y-%m-%dT%H:%M:%S.%N%z"
+    include_tag_key true
+    flush_interval 15s
+  </store>
+</match>
+
+
