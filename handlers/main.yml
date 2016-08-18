@@ -1,2 +1,6 @@
 ---
 # handlers file for hyclak.fluentd
+- name: restart td-agent
+  service:
+    name: td-agent
+    state: restarted
