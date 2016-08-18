@@ -23,7 +23,7 @@
 - name: Open fluent UDP port
   firewalld:
     port: 24224/udp
-    premanent: true
+    permanent: true
     state: enabled
     immediate: true
 
