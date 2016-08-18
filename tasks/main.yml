@@ -52,6 +52,12 @@
   when: ansible_os_family == 'RedHat'
   include: RedHat.yml
 
+# Create directory for customization
+- name: Create config.d directory
+  file:
+    path: '/etc/td-agent/config.d'
+    state: directory
+
 # Server or Client
 - name: Set up Server Configuration
   when: fluentd_mode == 'server'
