@@ -20,6 +20,13 @@
     state: started 
     enabled: yes
 
+- name: Open fluent UDP port
+  firewalld:
+    port: 24224/udp
+    premanent: true
+    state: enabled
+    immediate: true
+
 - name: Open fluent TCP port
   firewalld: 
     port: 24224/tcp
