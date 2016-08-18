@@ -8,4 +8,4 @@
   template:
     dest: /etc/td-agent/config.d/{{ item }}.conf
     src: etc/td-agent/config.d/{{ item }}.conf.j2
-    with_items: "{{ fluentd_apps }}"
+  with_items: "{{ fluentd_apps }}"
