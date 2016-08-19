@@ -1,5 +1,6 @@
 ---
 # vars file for hyclak.fluentd
 fluentd_apps: []
-fluentd_mode: client
-fwdhost: efk
+fluentd_mode: 'client'
+fluentd_source: 'upstream'
+fwdhost: 'efk'

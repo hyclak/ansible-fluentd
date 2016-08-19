@@ -8,6 +8,11 @@
     baseurl: http://packages.treasuredata.com/2/redhat/$releasever/$basearch
     gpgcheck: yes
     gpgkey: https://packages.treasuredata.com/GPG-KEY-td-agent
+  when: fluentd_source == 'upstream'
+
+- name: Add TreasureData Repository
+  command: /usr/sbin/subscription-manager repos --enable=treasuredata
+  when: fluentd_source == 'satellite' 
 
 - name: Install td-agent RPM
   yum:
